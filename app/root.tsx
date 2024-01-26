@@ -24,7 +24,6 @@ import {
   useMatches,
   useSubmit,
 } from '@remix-run/react'
-import { withSentry } from '@sentry/remix'
 import { useRef } from 'react'
 import { AuthenticityTokenProvider } from 'remix-utils/csrf/react'
 import { HoneypotProvider } from 'remix-utils/honeypot/react'
@@ -286,7 +285,7 @@ function Logo() {
   )
 }
 
-function AppWithProviders() {
+export default function AppWithProviders() {
   const data = useLoaderData<typeof loader>()
   return (
     <AuthenticityTokenProvider token={data.csrfToken}>
@@ -296,8 +295,6 @@ function AppWithProviders() {
     </AuthenticityTokenProvider>
   )
 }
-
-export default withSentry(AppWithProviders)
 
 function UserDropdown() {
   const user = useUser()
