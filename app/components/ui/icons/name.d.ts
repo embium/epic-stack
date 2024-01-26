@@ -8,6 +8,7 @@ export type IconName =
   | 'check'
   | 'clock'
   | 'cross-1'
+  | 'dashboard'
   | 'dots-horizontal'
   | 'download'
   | 'envelope-closed'
