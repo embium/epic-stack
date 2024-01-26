@@ -53,6 +53,7 @@ import { getEnv } from './utils/env.server.ts'
 import { honeypot } from './utils/honeypot.server.ts'
 import { combineHeaders, getDomainUrl, getUserImgSrc } from './utils/misc.tsx'
 import { useNonce } from './utils/nonce-provider.ts'
+import { userHasRole } from './utils/permissions.ts'
 import { useRequestInfo } from './utils/request-info.ts'
 import { type Theme, setTheme, getTheme } from './utils/theme.server.ts'
 import { makeTimings, time } from './utils/timing.server.ts'
@@ -276,10 +277,10 @@ function Logo() {
   return (
     <Link to="/" className="group grid leading-snug">
       <span className="font-light transition group-hover:-translate-x-1	">
-        epic
+        Review
       </span>
       <span className="font-bold transition group-hover:translate-x-1	">
-        notes
+        Bank
       </span>
     </Link>
   )
@@ -325,6 +326,15 @@ function UserDropdown() {
       </DropdownMenuTrigger>
       <DropdownMenuPortal>
         <DropdownMenuContent sideOffset={8} align="start">
+          {userHasRole(user, 'admin') && (
+            <DropdownMenuItem asChild>
+              <Link prefetch="intent" to={`/admin/data`}>
+                <Icon className="text-body-md" name="dashboard">
+                  Admin
+                </Icon>
+              </Link>
+            </DropdownMenuItem>
+          )}
           <DropdownMenuItem asChild>
             <Link prefetch="intent" to={`/users/${user.username}`}>
               <Icon className="text-body-md" name="avatar">
